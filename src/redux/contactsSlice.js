@@ -1,21 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import {deleteContacts, getContacts} from "../api.js";
 
-const localStorageKey = "contacts";
+const initialState = [];
 
-const itemsFromLS = JSON.parse(localStorage.getItem(localStorageKey));
-const setItemsToLS = (contacts) =>
-  localStorage.setItem(localStorageKey, JSON.stringify(contacts));
+export const fetchContacts = createAsyncThunk(
+  "contacts/fetchContacts",
+  async () => {
+    const response = await getContacts();
+    return response;
+  }
+);
 
-const initialState = itemsFromLS.length
-  ? itemsFromLS
-  : [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ];
-
+export const removeContacts = createAsyncThunk(
+  "contacts/removeContacts",
+  async (id) => {
+    const response = await deleteContacts(id);
+    return response;
+  }
+);
 const contactsSlice = createSlice({
   name: "contacts",
   initialState,
@@ -27,15 +31,17 @@ const contactsSlice = createSlice({
       if (!duplicate) {
         state.push(action.payload);
       }
-      setItemsToLS(state);
     },
-    deleteContact: (state, action) => {
-      const newcontacts = state.filter(
-        (contact) => contact.id !== action.payload
-      );
-      setItemsToLS(newcontacts);
-      return newcontacts;
-    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchContacts.fulfilled, (state, action) => {
+      state.push(...action.payload);
+    });
+    builder.addCase(removeContacts.fulfilled, (state, action) => {
+
+      return state.filter((contact) => contact.id !== action.payload.id);
+    });
   },
 });
 

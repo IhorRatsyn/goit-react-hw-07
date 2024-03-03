@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../redux/contactsSlice";
+import {deleteContact, removeContacts} from "../redux/contactsSlice";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
 import css from "./Contact.module.css";
@@ -10,7 +10,7 @@ const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
+    dispatch(removeContacts(contact.id));
   };
 
   return (

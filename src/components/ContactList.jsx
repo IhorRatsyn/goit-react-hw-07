@@ -1,8 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Contact from "./Contact.jsx";
+import {removeContacts} from "../redux/contactsSlice.js";
 
 const ContactList = ({}) => {
+  const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts);
   const filterText = useSelector((state) => state.filters);
 
@@ -16,17 +18,12 @@ const ContactList = ({}) => {
   // Використання getFilteredContacts для отримання контактів, які відповідають фільтру
   const filteredContacts = getFilteredContacts();
 
-  const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-  };
-
   return (
     <ul>
       {filteredContacts.map((contact) => (
         <Contact
           key={contact.id}
           contact={contact}
-          onDeleteContact={handleDeleteContact}
         />
       ))}
     </ul>
