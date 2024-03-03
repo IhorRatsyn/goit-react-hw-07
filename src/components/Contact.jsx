@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { deleteContact } from "../redux/contactsSlice";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
+import css from "./Contact.module.css";
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
@@ -15,11 +16,11 @@ const Contact = ({ contact }) => {
   return (
     <li>
       <div>
-        <div className="contact-detail">
+        <div className={css["contact-detail"]}>
           <PersonIcon />
           {contact.name}
         </div>
-        <div className="contact-detail">
+        <div className={css["contact-detail"]}>
           <PhoneIcon />
           {contact.number}
         </div>

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { addContact } from "../redux/contactsSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import PropTypes from "prop-types";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -52,8 +51,6 @@ const ContactForm = () => {
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
+ContactForm.propTypes = {};
 
 export default ContactForm;
