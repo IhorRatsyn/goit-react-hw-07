@@ -14,7 +14,6 @@ const validationSchema = Yup.object({
     .max(50, "Too Long!")
     .required("Required"),
 });
-
 const ContactForm = () => {
   const dispatch = useDispatch();
 
