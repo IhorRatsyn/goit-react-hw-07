@@ -3,7 +3,7 @@ import ContactForm from "./ContactForm";
 import ContactList from "./ContactList";
 import SearchBox from "./SearchBox";
 import css from "./App.module.css";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchContacts } from "../redux/contactsSlice";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
   dispatch(fetchContacts());
   return (
     <div className={css.container}>
-      <h1 className={css.title}>32323</h1>
+      <h1 className={css.title}>Phonebook</h1>
       <ContactForm />
       <div className={css["search-container"]}>
         <SearchBox />
